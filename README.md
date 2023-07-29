@@ -1,0 +1,1 @@
+This is made for the Hack Club Outernet Hackathon. The theme was to make people laugh, and nothing makes people laugh better than other people.
