@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .word {
+            width: auto;
+        }
+    </style>
+</head>
+
+<body>
+<div id="test"></div>
+<script>
+	let lib = {
+		"name": "Walmart Shopping",
+		"text": "Come {Verb} at WALMART, where you`ll receive {Adjective} discounts on all of your favorite brand name {Plural Noun}. Our {Adjective} and {Verb ending with 'ing'} associates are there to {Verb} you {Number} hours a day. Here you will find {Adjective} prices on the {Plural Noun} you need. {Plural Noun} for the moms, {Plural Noun} for the kids and all the latest electronics for the {Type of relative}. So come on down to your {Adjective} {Adjective} WALMART where the {Plural Noun} come first."
+	};
+	let title = document.createElement("h1");
+	title.innerText = lib.name;
+	let real = "";
+	for (let i = 0; i < lib.text.length; i++) {
+		let char = lib.text.charAt(i);
+		if (char === "{") {
+			real += "<input type='text' class='word' placeholder='"
+		} else if (char === "}") {
+			real += "' />";
+		} else {
+			real += char;
+		}
+	}
+	document.querySelector("#test").innerHTML = real;
+</script>
+</body>
+
+</html>

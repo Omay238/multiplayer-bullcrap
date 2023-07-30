@@ -1,0 +1,40 @@
+@import url('https://fonts.googleapis.com/css2?family=Merriweather&display=swap');
+
+* {
+    font-family: 'Merriweather', serif;
+}
+
+html, body {
+    background: mediumslateblue;
+}
+
+#join > input {
+    position: absolute;
+    left: 50vw;
+    top: 50vh;
+    transform: translate(-50%, -50%);
+    width: 20vw;
+    font-size: xx-large;
+    height: auto;
+}
+
+#join > button {
+    position: absolute;
+    left: 50vw;
+    top: 50vh;
+    transform: translate(-50%, 100%);
+    width: 20vw;
+    font-size: x-large;
+    height: auto;
+}
+
+#game {
+    display: none;
+}
+
+main {
+    position: absolute;
+    left: 50vw;
+    top: 50vh;
+    transform: translate(-50%, -50%);
+}

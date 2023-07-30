@@ -1,0 +1,27 @@
+{
+  "name": "multiplayer-bullcrap",
+  "version": "1.0.0",
+  "description": "This is made for the Hack Club Outernet Hackathon. The theme was to make people laugh, and nothing makes people laugh better than other people.",
+  "main": "index.js",
+  "scripts": {
+    "test": "npx nodemon index.js",
+    "run": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Omay238/multiplayer-bullcrap.git"
+  },
+  "author": "Omay",
+  "license": "CC-BY-NC-SA-4.0",
+  "bugs": {
+    "url": "https://github.com/Omay238/multiplayer-bullcrap/issues"
+  },
+  "homepage": "https://github.com/Omay238/multiplayer-bullcrap#readme",
+  "dependencies": {
+    "express": "^4.18.2",
+    "socket.io": "^4.7.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  }
+}
