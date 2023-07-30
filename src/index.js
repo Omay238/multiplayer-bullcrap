@@ -1,5 +1,4 @@
 const express = require('express');
-const port = 3000;
 const app = express();
 const http = require('http');
 const server = http.createServer(app);
@@ -7,12 +6,15 @@ const { Server } = require("socket.io");
 const io = new Server(server);
 const gameState = require("./gameState");
 const fs = require("fs");
-const repl = require("repl");
+
+let gameID = 1;
 
 let lib = JSON.parse(fs.readFileSync(__dirname + "/libs.json").toString());
 console.log(JSON.stringify(lib));
 
 const users = new Map();
+
+app.set('port', 0);
 
 app.get('/', (req, res) => {
 	res.mimeType = "text/html";
@@ -55,42 +57,46 @@ io.on("connection", (socket) => {
 	console.log("A user has connected.");
 	let userID = users.size;
 
-	io.on("disconnect", (socket) => {
+	io.on("disconnect", (_socket) => {
 		console.log("A user has disconnected.");
 	});
 
 	socket.on("joined", (name) => {
 		console.log("A player named " + name + " has joined.");
 		gameState.players[name] = 0;
-		if(chosenWords >= lib.madLibs[0].inputs.length) {
-			let inputs = lib.madLibs[0].inputs;
-			let template = lib.madLibs[0].text;
+		if(chosenWords >= lib.madLibs[gameID].inputs.length) {
+			let inputs = lib.madLibs[gameID].inputs;
+			let template = lib.madLibs[gameID].text;
 			let out = formatTemplate(template, inputs);
-			socket.emit("end", out);
+			io.emit("end", out);
 		}else{
-			let word = lib.madLibs[0].inputs[chosenWords];
+			let word = lib.madLibs[gameID].inputs[chosenWords];
 			chosenWords++;
 			socket.emit("word", word.question, word.id);
 		}
 	});
 
 	socket.on("wordsubmit", (inp) => {
-		word = inp[0];
-		id = inp[1];
-		lib.madLibs[0].inputs[lib.madLibs[0].inputs.map(x => x.id).indexOf(id)].question = word;
-		if(chosenWords >= lib.madLibs[0].inputs.length) {
-			let inputs = lib.madLibs[0].inputs;
-			let template = lib.madLibs[0].text;
+		let word = inp[0];
+		let id = inp[1];
+		lib.madLibs[gameID].inputs[lib.madLibs[gameID].inputs.map(x => x.id).indexOf(id)].question = word;
+		if(chosenWords >= lib.madLibs[gameID].inputs.length) {
+			let inputs = lib.madLibs[gameID].inputs;
+			let template = lib.madLibs[gameID].text;
 			let out = formatTemplate(template, inputs);
-			socket.emit("end", out);
+			io.emit("wait", "");
+			if(lib.madLibs[gameID].inputs[lib.madLibs[gameID].inputs.length - 1].id === id){
+				io.emit("end", out);
+			}
 		}else {
-			let word1 = lib.madLibs[0].inputs[chosenWords];
+			let word1 = lib.madLibs[gameID].inputs[chosenWords];
 			chosenWords++;
 			socket.emit("word", word1.question, word1.id);
 		}
 	})
 });
 
-server.listen(port, () => {
-	console.log(`App listening on port ${port}`);
+server.listen(app.get('port'), () => {
+	const { port } = server.address();
+	console.log(`App listening at http://localhost:${port}`);
 });

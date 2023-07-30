@@ -38,3 +38,19 @@ main {
     top: 50vh;
     transform: translate(-50%, -50%);
 }
+
+#end{
+    width: 100vw;
+    height: 100vh;
+    horiz-align: center;
+    vertical-align: center;
+    vert-align: middle;
+}
+
+#end > p {
+    width: 100vw;
+    height: 100vh;
+    horiz-align: center;
+    vertical-align: center;
+    vert-align: middle;
+}

@@ -18,8 +18,12 @@ document.querySelector("#submit").onclick = () => {
 }
 
 socket.on("end", (message) => {
+	document.querySelector("#end").innerHTML = message;
+});
+
+socket.on("wait", () => {
 	document.querySelector("#game").remove();
-	document.querySelector("#end > p").innerText = message;
+	document.querySelector("#end").innerHTML = "Just wait. The last person is submitting their answers now!";
 });
 
 // function setup() {
