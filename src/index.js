@@ -90,6 +90,9 @@ function main(){
 				io.emit("wait", "");
 				if(lib.madLibs[gameID].inputs[lib.madLibs[gameID].inputs.length - 1].id === id){
 					io.emit("end", out);
+					server.close();
+					io.close();
+					main();
 					return;
 				}
 			}else {
@@ -106,4 +109,4 @@ function main(){
 	});
 }
 
-module.exports = main;
+main();
