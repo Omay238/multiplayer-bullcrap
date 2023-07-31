@@ -1,5 +1,7 @@
 let socket = io();
 
+alert("If you're new, go to the terminal by pressing command + tab, exit the nodejs program, and type 'npm run test' It's multiplayer, so it's a bit worse now.")
+
 document.querySelector("#joinbutton").onclick = () => {
 	socket.emit("joined", document.querySelector("#name").value);
 	document.querySelector("#join").remove();
@@ -7,6 +9,7 @@ document.querySelector("#joinbutton").onclick = () => {
 }
 
 socket.on("word", (word, id) => {
+	document.querySelector("#word").value = "";
 	document.querySelector("#prompt").innerText = word;
 	document.querySelector("#prompt").classList.remove(document.querySelector("#prompt").classList.item(0))
 	document.querySelector("#prompt").classList.add(id);
@@ -18,7 +21,7 @@ document.querySelector("#submit").onclick = () => {
 }
 
 socket.on("end", (message) => {
-	document.querySelector("#end").innerHTML = message;
+	document.querySelector("#end").innerHTML = message + "<br>Press Ctrl+R or Cmd+R to play again.";
 });
 
 socket.on("wait", () => {

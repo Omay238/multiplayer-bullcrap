@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "greenlock-express": "^4.0.3",
+    "https": "^1.0.0"
+  }
+}
